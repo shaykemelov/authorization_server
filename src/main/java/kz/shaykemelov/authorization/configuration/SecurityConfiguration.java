@@ -83,11 +83,11 @@ public class SecurityConfiguration
     }
 
     @Bean
-    public RegisteredClientRepository registeredClientRepository()
+    public RegisteredClientRepository registeredClientRepository(final PasswordEncoder passwordEncoder)
     {
         final RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("client")
-                .clientSecret("secret")
+                .clientSecret(passwordEncoder.encode("secret"))
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .redirectUri("https://shaykemelov.kz")
